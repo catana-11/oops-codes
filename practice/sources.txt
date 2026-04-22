@@ -265,3 +265,120 @@ int main() {
     friendFunction(object1);
     return 0;
 }
+
+
+Inheritance:
+
+Important points
+▪ Inheritance represents the IS-A relationship, also known as parent-child relationship.
+▪ The class which inherits the properties of other is known as subclass (derived class, child
+class)
+▪ The class from which the properties are inherited is known as superclass (parent class,
+base class)
+Why use Inheritance ?
+▪ For Method Overriding (so runtime polymorphism can be achieved).
+▪ For Code Reusability.
+
+
+
+• int y;
+• y = ++x; // Value of x is incremented, then x is assigned to y.
+• y = x++; // x is assigned to y, then value of x is incremented.
+
+
+Early Binding
+• Early binding refers to events that occur at compile time.
+• Occurs when all information needed to call a function is known at
+compile time.
+• Examples : Standard library functions, overloaded function calls,
+and overloaded operators.
+• The main advantage to early binding is efficiency. 
+
+class Animals {
+    public: 
+        void sound() {
+        cout << "This is parent class" << endl;
+        }
+};
+
+
+class Dogs : public Animals {
+    public: 
+        void sound() {
+        cout << "Dogs bark" << endl;
+        }
+};
+
+int main()
+{
+    Animals *a;
+    Dogs d;
+    a = &d;
+    a -> sound(); // early binding
+}
+
+Output:
+This is parent class
+
+
+Late Binding
+
+• Late binding refers to function calls that are not resolved until run time.
+• Virtual functions are used to achieve late binding.
+• The main advantage to late binding is flexibility.
+• As a function call is not resolved until run time, late binding has slower execution
+times
+
+class Animals {
+    public: 
+        void sound() {
+        cout << "This is parent class" << endl;
+        }
+};
+
+
+class Dogs : public Animals {
+    public: 
+        void sound() {
+        cout << "Dogs bark" << endl;
+        }
+};
+
+int main()
+{
+    Animals *a;
+    Dogs d;
+    a = &d;
+    a -> sound(); // late binding
+}
+
+Output
+Dogs bark
+
+
+Abstract Class
+
+• Abstract class is also known as Interface.
+• An abstract class is a class whose instances (objects) can't be made.
+• Objects of subclass can be made if they are not abstract.
+• An abstract class has at least one abstract function (pure virtual
+function).
+• Abstract class can have normal functions and variables along with a
+pure virtual function.
+• If even one pure virtual function is not overridden, the derived-class will
+also be abstract
+• Compiler will refuse to create any objects of the class
+• Cannot call a constructor
+
+
+
+Virtual Destructor
+
+• Calling the destructor of base class, does not destruct the
+memory of derived class.
+• This problem can be fixed up by making the base class
+destructor virtual.
+• We can ensure that the derived class destructor gets called
+before the base class destructor.
+
+
