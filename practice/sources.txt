@@ -1,0 +1,267 @@
+https://www.geeksforgeeks.org/cpp/how-to-compile-a-cpp-program-using-gcc/
+
+Steps involved in Compilation:
+Source Code (.cpp, .h files)
+Preprocessing
+Compilation
+Assembly
+Linking
+Execution
+
+Stage           Tool            Example command
+
+Preprocessing   g++ -E          g++ -E main.cpp -o main.i
+
+Compilation     g++ -S          g++ -S main.i -o main.s
+
+Assembly        g++ -c          g++ -c main.s -o main.o
+
+Linking         g++             g++ main.o -o main
+
+Automation      make            Automate multi-file builds
+
+A reference is an alias, or an alternate name to an existing variable
+– Must be initialized when it is declared
+• References acts as function formal parameters to support pass-byreference
+• Any changes to reference variable inside the function are reflected outside
+the function
+
+int &z ; //Error: reference must be initialized
+
+int x = 5;
+int &z = x;// z is another name for x
+
+
+Access Specifiers:
+
+public:
+    accessible from own class, derived class, class objects
+
+protected:
+    accessible from own class, derived class, friend classes/friend functions
+
+private: 
+    accessible from own class and by friend classes/friend functions
+
+by default all items are private
+
+
+A static member function in C++ is a function that belongs to the class rather than any specific object of the class. It is declared using the static keyword inside the class definition.
+
+Key points:
+
+Can be called without creating an object.
+Only has access to static data members or other static functions.
+Useful when a function’s logic is independent of object state.
+
+example:
+
+class Box  
+{  
+    private:  
+    static int length; 
+    static int breadth;  
+    static int height;  
+    
+    public:
+    
+    static void print()  
+    {  
+        cout << "The value of the length is: " << length << endl;  
+        cout << "The value of the breadth is: " << breadth << endl;  
+        cout << "The value of the height is: " << height << endl;  
+    }
+}; 
+
+call by  using
+b.print();
+or
+Box::print();
+in main function
+
+
+Constructor is automatically called when an object is created.
+
+If you do not specify a constructor, the compiler
+generates a default constructor for you (expects
+no parameters and has an empty body).
+
+
+Constructors:
+
+Default constructor
+--> compile creates one if not explicitly defined
+--> no argument constructor
+
+Parameterized
+--> Parameterized constructor that has params in it
+--> 
+class rectangle{
+
+    private:
+        float height;
+        float width;
+
+    public:
+        rectangle(float h, float w){
+            height=h;
+            width=w;
+        }
+};
+
+
+Default Parameterized
+
+C++ allow the programmer to specify default arguments that always have a value, even if one is not
+specified when calling the funtion
+e.g. int power(int a, int b=2);
+
+The programmer may call this function in two ways
+result = power(10,3); // result = 103 = 1000
+result = power(10); // result = 102 = 100
+
+
+Copy constructor
+
+rectangle(rectangle &p){
+height = p.height;
+width = p.width;
+}
+
+int main(){
+    rectangle book_1(10.0, 20.0);
+    rectangle book_2(book_1);
+}
+
+Constructor Overloading
+    You can have more than one constructor in a class, as long as each has a different
+list of arguments
+
+Destructors
+
+    A destructor is used to destroy the objects that have been created by a constructor.
+    • Like constructor, the destructor is a member function whose name is the same as
+    the class name but is preceded by a tilde.
+    ~T();
+
+    It does not return any value; not even void
+    Destructor cannot be overloaded nor inherited.
+
+    ~rectangle() {
+        cout<<"\n Destroyed ObjectId:"<<count;
+        count--;
+    }
+
+
+
+Dynamic memory allocation
+
+    Dynamically allocated memory is allocated on Heap
+    and nonstatic and local variables get memory allocated on Stack
+
+
+Pointers and Dynamic Memory
+
+Here are the steps:
+int * myIntPtr; // create an integer pointer variable
+myIntPtr = new int; // create a dynamic variable of the size integer
+
+new returns a pointer (or memory address) to the location where the
+data is to be stored.
+
+
+int * myIntPtr;
+myIntPtr = new int[4];
+
+myIntPtr[1] = 325;
+
+delete myIntPtr; // Deletes the memory pointed
+delete [ ] arrayPtr; // to but not the pointer variable
+
+
+Friend Functions/Classes
+
+• friends allow functions/classes access to private data of other classes.
+• Friend functions
+– A 'friend' function has access to all private and protected members (variables
+and functions) of the class for which it is a 'friend'.
+– friend function is not the actual member of the class.
+– To declare a 'friend' function, include its prototype within the class, preceding it
+with the C++ keyword 'friend'.
+
+#include <iostream>
+using namespace std;
+
+class Geeks {
+private:
+    int private_variable;
+
+protected:
+    int protected_variable;
+
+public:
+    Geeks() {
+        private_variable = 10;
+        protected_variable = 99;
+    }
+
+    // friend class declaration
+    friend class GFG;
+};
+
+// class GFG is declared as a friend
+// inside class Geeks, therefore
+// Class GFG can access private members
+// of class Geeks.
+class GFG {
+public:
+    void display(Geeks& t) {
+        cout << "The value of Private Variable = "
+             << t.private_variable << endl;
+        cout << "The value of Protected Variable = "
+             << t.protected_variable;
+    }
+};
+
+int main() {
+    Geeks g;
+    GFG fri;
+    fri.display(g);
+    return 0;
+}
+
+
+#include <iostream>
+using namespace std;
+
+class base {
+private:
+    int private_variable;
+
+protected:
+    int protected_variable;
+
+public:
+    base() {
+        private_variable = 10;
+        protected_variable = 99;
+    }
+    
+    // Friend function declaration
+    friend void friendFunction(base& obj);
+};
+
+
+// friend function definition
+void friendFunction(base& obj) {
+    cout << "Private Variable: " 
+         << obj.private_variable << endl;
+    cout << "Protected Variable: " 
+         << obj.protected_variable;
+}
+
+int main() {
+    base object1;
+    friendFunction(object1);
+    return 0;
+}
